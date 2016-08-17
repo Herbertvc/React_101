@@ -1,0 +1,19 @@
+{
+  "name": "react_101",
+  "version": "1.0.0",
+  "description": "React app created following the tutorial in https://blog.tighten.co/react-101-building-a-gif-search-engine",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Herbertvc/React_101.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Herbertvc/React_101/issues"
+  },
+  "homepage": "https://github.com/Herbertvc/React_101#readme"
+}
