@@ -3,41 +3,55 @@ import ReactDOM from 'react-dom';
 
 import SearchBar from './components/SearchBar';
 import GifList from './components/GifList';
+import GifModal from './components/GifModal';
+
+import './styles/app.css';
 
 class App extends React.Component {
-	constructor(props) {
-		super(props);
+	state = {
+		gifs: [],
+		selectedGif: null,
+		modalIsOpen: false
+	};
 
-		this.state = {
-			gifs: [
-				{
-					id: 1,
-					url: 'http://fakeimg.pl/300/'
-				},
-				{
-					id: 2,
-					url: 'http://fakeimg.pl/300/'
-				},
-				{
-					id: 3,
-					url: 'http://fakeimg.pl/300/'
-				}
-			]
-		}
-	}
+	openModal = (gif) => {
+		this.setState({
+			modalIsOpen: true,
+			selectedGif: gif
+		});
+	};
 
-	handleTermChange (term) {
-		console.log(term);
-	}
+	closeModal = () => {
+		this.setState({
+			modalIsOpen: false,
+			selectedGif: null
+		});
+	};
+
+	handleTermChange = (term) => {
+		const url = `http://api.giphy.com/v1/gifs/search?q=${term.replace(/\s/g, '+')}&api_key=dc6zaTOxFJmzC`;
+
+		fetch(url).then((response) => response.json()).then((data) => {this.setState({gifs: data.data})});
+	};
 
 	render() {
 		return (
 			<div>
-				<SearchBar onTermChange={this.handleTermChange.bind(this)}/>
-				<GifList gifs={this.stage.gifs}/>
+				<SearchBar
+					onTermChange={this.handleTermChange}
+				/>
+				<GifList 
+					gifs={this.state.gifs}
+					onGifSelect={selectedGif => this.openModal(selectedGif)}
+				/>
+				<GifModal
+					modalIsOpen={this.state.modalIsOpen}
+					selectedGif={this.state.selectedGif}
+					onRequestClose={() => this.closeModal()}
+				/>
 			</div>
 		);
 	}
 }
 
-ReactDOM.render(<App />,document.getElementById('app'));
+ReactDOM.render(<App />, document.getElementById('app'));

@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 import GifItem from './GifItem';
 
+// const propTypes = {
+// 	gifs: PropTypes.arrayOf,
+// }
+
 const GifList = (props) => {
 	const gifItems = props.gifs.map((image) => {
-		return <GifItem key={image.id} gif={image} />
+		return <GifItem key={image.id} gif={image} onGifSelect={props.onGifSelect} />
 	});
 
 	return(
-		<ul>{gifItems}</ul>
+		<div className={'gif-list'}>{gifItems}</div>
 	);
 }
+
+// GifList.propTypes = propTypes;
 
 export default GifList;
