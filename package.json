@@ -4,6 +4,8 @@
   "description": "React app created following the tutorial in https://blog.tighten.co/react-101-building-a-gif-search-engine",
   "main": "index.js",
   "scripts": {
+    "build": "webpack",
+    "start": "webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +17,19 @@
   "bugs": {
     "url": "https://github.com/Herbertvc/React_101/issues"
   },
-  "homepage": "https://github.com/Herbertvc/React_101#readme"
+  "homepage": "https://github.com/Herbertvc/React_101#readme",
+  "devDependencies": {
+    "babel-core": "^6.13.2",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.13.2",
+    "babel-preset-react": "^6.11.1",
+    "babel-preset-stage-1": "^6.13.0",
+    "react-hot-loader": "^1.3.0",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
+  },
+  "dependencies": {
+    "react": "^15.3.0",
+    "react-dom": "^15.3.0"
+  }
 }
