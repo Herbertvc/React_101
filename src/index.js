@@ -35,6 +35,10 @@ class App extends React.Component {
 	};
 
 	render() {
+		const gifListActions = {
+			openModal: this.openModal,
+		};
+
 		return (
 			<div>
 				<SearchBar
@@ -42,7 +46,7 @@ class App extends React.Component {
 				/>
 				<GifList 
 					gifs={this.state.gifs}
-					onGifSelect={selectedGif => this.openModal(selectedGif)}
+					actions={gifListActions}
 				/>
 				<GifModal
 					modalIsOpen={this.state.modalIsOpen}
