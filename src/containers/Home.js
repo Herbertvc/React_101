@@ -11,7 +11,7 @@ import GifModal from '../components/GifModal';
 
 import '../styles/app.css';
 
-class App extends React.Component {
+class Home extends React.Component {
 	openModal = (selectedGif) => {
 		this.props.actions.openModal({selectedGif});
 	}
@@ -60,4 +60,4 @@ function mapDispatchToProps(dispatch) {
 	};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
