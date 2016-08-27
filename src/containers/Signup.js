@@ -28,8 +28,15 @@ const validate = values => {
 
 class Signup extends React.Component {
 	handleFormSubmit = (values) => {
-		this.props.signInUser(values);
+		this.props.signUpUser(values);
 	}
+
+  renderAuthenticationError() {
+    if (this.props.authenticationError) {
+      return <div className="alert alert-danger">{this.props.authenticationError}</div>;
+    }
+    return <div></div>;
+  }
 
   render() {
   	const {
@@ -41,6 +48,7 @@ class Signup extends React.Component {
       <div className="container">
       	<div className="col-md-6 col-md-offset-3">
       		<h2 className="text-center">Sign Up</h2>
+          {this.renderAuthenticationError()}
       		<form onSubmit={handleSubmit(this.handleFormSubmit)}>
       			<fieldset className={`form-group ${email.touched && email.invalid ? 'has-error' : ''}`}>
       				<label className="control-label">Email</label>
@@ -65,8 +73,14 @@ class Signup extends React.Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    authenticationError: state.auth.error,
+  }
+}
+
 export default reduxForm({
   form: 'signup',
   fields: ['email', 'password', 'passwordConfirmation'],
   validate,
-}, null, Actions)(Signup)
+}, mapStateToProps, Actions)(Signup)

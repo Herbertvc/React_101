@@ -22,6 +22,14 @@ class Login extends React.Component {
 	handleForSubmit = (values) => {
 		this.props.signInUser(values);
 	}
+
+  renderAuthenticationError() {
+    if (this.props.authenticationError) {
+      return <div className="alert alert-danger">{this.props.authenticationError}</div>;
+    }
+    return <div></div>;
+  }
+
 	// http://redux-form.com/6.0.0-alpha.15/docs/MigrationGuide.md/ There is a change between the guide and the current code, that is cause' react in the  v15.2 or higher doesen't support some props on the vanilla input
   render() {
   	const {
@@ -33,6 +41,7 @@ class Login extends React.Component {
       <div className="container">
       	<div className="col-md-6 col-md-offset-3">
       		<h2 className="text-center">Log In</h2>
+          {this.renderAuthenticationError()}
       		<form onSubmit={handleSubmit(this.handleForSubmit)}>
       			<fieldset className={`form-group ${email.touched && email.invalid ? 'has-error' : ''}`}>
       				<label className="control-label">Email</label>
@@ -51,9 +60,15 @@ class Login extends React.Component {
     );
   }
 }
- 
+
+function mapStateToProps(state) {
+  return {
+    authenticationError: state.auth.error,
+  }
+}
+
 export default reduxForm({
 	form: 'login',
 	fields: ['email', 'password'],
 	validate,
-}, null, Actions)(Login);
+}, mapStateToProps, Actions)(Login);

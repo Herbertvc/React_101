@@ -20,30 +20,45 @@ class Home extends React.Component {
 		this.props.actions.closeModal();
 	}
 
-  render() {
-  	const gifListActions = {
-  		openModal: this.openModal,
-  	}
+	onFavoriteSelect = (selectedGif) => {
+		this.props.actions.favoriteGif({selectedGif});
+	}
 
-  	const gifModalActions = {
-  		closeModal: this.closeModal,
-  	}
+	onFavoriteDeselect = (selectedGif) => {
+		this.props.actions.unfavoriteGif({selectedGif});
+	}
 
-    return (
-      <div>
-      	<SearchBar onTermChange={this.props.actions.requestGifs} />
-      	<GifList
-      		gifs={this.props.gifs}
-      		actions={gifListActions}
-      	/>
-      	<GifModal
-      		modalIsOpen={this.props.modalIsOpen}
-      		selectedGif={this.props.selectedGif}
-      		actions={gifModalActions}
-      	/>
-      </div>
-    );
-  }
+	isAuthenticated = () => {
+		this.props.actions.authenticated();
+	}
+
+	render() {
+		const gifListActions = {
+			openModal: this.openModal,
+			onFavoriteSelect: this.onFavoriteSelect,
+			onFavoriteDeselect: this.onFavoriteDeselect,
+			isAuthenticated: this.isAuthenticated,
+		}
+
+		const gifModalActions = {
+			closeModal: this.closeModal,
+		}
+
+		return (
+			<div>
+				<SearchBar onTermChange={this.props.actions.requestGifs} />
+				<GifList
+					gifs={this.props.gifs}
+					actions={gifListActions}
+				/>
+				<GifModal
+					modalIsOpen={this.props.modalIsOpen}
+					selectedGif={this.props.selectedGif}
+					actions={gifModalActions}
+				/>
+			</div>
+		);
+	}
 }
 
 function mapStateToProps (state) {
@@ -51,6 +66,7 @@ function mapStateToProps (state) {
 		gifs: state.gifs.data,
 		modalIsOpen: state.modal.modalIsOpen,
 		selectedGif: state.modal.selectedGif,
+		authenticated: state.auth.authenticated,
 	};
 }
 
