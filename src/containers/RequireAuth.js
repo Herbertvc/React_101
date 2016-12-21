@@ -11,7 +11,7 @@ export default function(WrappedComponent) {
 		}
 
 		render() {
-			return <WrappedComponent {...this.props} />
+			return <WrappedComponent>{...this.props}</WrappedComponent>
 		}
 	}
 
